@@ -44,4 +44,14 @@ public class CityHistory {
     public void setTemperature(int temperature) {
         this.temperature = temperature;
     }
+
+    @Override
+    public String toString() {
+        return "CityHistory{" +
+                "historicalDataId=" + historicalDataId +
+                ", cityId=" + cityId +
+                ", eventDate=" + eventDate +
+                ", temperature=" + temperature +
+                '}';
+    }
 }

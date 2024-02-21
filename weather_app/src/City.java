@@ -53,7 +53,16 @@ public class City {
         this.currentHumidity = currentHumidity;
         this.currentWindSpeed = currentWindSpeed;
     }
-
+    @Override
+    public String toString() {
+        return "City Information\n" +
+                "-----------------\n" +
+                "ID: " + cityId +
+                "\nName: " + cityName +
+                "\nTemperature: " + currentTemperature + " °C" +
+                "\nHumidity: " + currentHumidity + " %" +
+                "\nWind Speed: " + currentWindSpeed + " km/s";
+    }
 
 
 
