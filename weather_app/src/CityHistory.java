@@ -47,11 +47,15 @@ public class CityHistory {
 
     @Override
     public String toString() {
-        return "CityHistory{" +
-                "historicalDataId=" + historicalDataId +
-                ", cityId=" + cityId +
-                ", eventDate=" + eventDate +
-                ", temperature=" + temperature +
-                '}';
+        return "CityHistory Information\n" +
+                "-----------------------\n"+
+                "historicalDataId= " + historicalDataId +
+                "\n cityId= " + cityId +
+                "\n eventDate= " + eventDate +
+                "\n temperature= " + temperature +" °C"+
+                "\n-----------------------";
+
+
     }
+
 }
