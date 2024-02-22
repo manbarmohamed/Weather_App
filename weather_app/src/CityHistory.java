@@ -4,6 +4,7 @@ public class CityHistory {
     private int historicalDataId;
     private int cityId;
 
+
     private LocalDate eventDate;
     private int temperature;
     public CityHistory(int historicalDataId, int cityId, LocalDate eventDate, int temperature) {

@@ -29,6 +29,20 @@ public class DatabaseManager {
         connection.close();
         return city;
     }
+//    public static void getAlCities() throws SQLException {
+//        String sql = "SELECT * FROM City";
+//        PreparedStatement statement = getConnection().prepareStatement(sql);
+//        ResultSet resultSet = statement.executeQuery();
+//        while (resultSet.next()){
+//            int id = resultSet.getInt("cityId");
+//            String name = resultSet.getString("cityName");
+//            int temp = resultSet.getInt("currentTemperature");
+//            int hm = resultSet.getInt("currentHumidity");
+//            int wind = resultSet.getInt("currentWindSpeed");
+//            System.out.println("ID: "+id+" Name: "+name+" Temp: "+temp+" Humidity: "+hm+ " Wind Speed: "+wind);
+//        }
+//
+//    }
 
     public static void addCity(City city) throws SQLException {
         String sql = "INSERT INTO City (cityId, cityName, currentTemperature,currentHumidity,currentWindSpeed) VALUES (?, ?, ?,?,?)";
@@ -61,7 +75,7 @@ public class DatabaseManager {
     }
 
     public static void deleteCity(int id) throws SQLException {
-        String sql = "DELETE FROM City WHERE id = ?";
+        String sql = "DELETE FROM City WHERE cityId = ?";
         Connection connection = getConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, id);
@@ -90,6 +104,7 @@ public class DatabaseManager {
         connection.close();
         return city;
     }
+
     // Methode of CityHistory
     public static List<CityHistory> getAlCityHistory() throws SQLException {
         List<CityHistory> city_H = new ArrayList<>();
@@ -103,11 +118,12 @@ public class DatabaseManager {
             int temp = resultSet.getInt("temperature");
             LocalDate eventDate = resultSet.getDate("eventDate").toLocalDate();
 
-            city_H.add(new CityHistory(historicalDataId,cityId,eventDate,temp));
+            city_H.add(new CityHistory(historicalDataId, cityId, eventDate, temp));
         }
         connection.close();
         return city_H;
     }
+
     public static void addCityHistory(CityHistory city_h) throws SQLException {
         String sql = "INSERT INTO CityHistory (historicalDataId, temperature, eventDate,cityId) VALUES (?, ?, ?,?)";
         Connection connection = getConnection();
@@ -120,6 +136,7 @@ public class DatabaseManager {
         connection.close();
         System.out.println("City History added successfully!");
     }
+
     public static void updateCityHistory(CityHistory city_h) throws SQLException {
         String sql = "UPDATE City SET temperature = ?, eventDate=? WHERE historicalDataId = ?";
         Connection connection = getConnection();
@@ -141,8 +158,9 @@ public class DatabaseManager {
         System.out.println("City deleted successfully!");
     }
 
-    public static CityHistory getCityHistoryByName(int id_h) throws SQLException {
-        String sql = "SELECT * FROM CityHistory WHERE historicalDataId = ?";
+    public static CityHistory getCityHistoryById(int id_h) throws SQLException {
+        String sql = "SELECT * FROM City ,CityHistory WHERE City.cityId = ?";
+
         Connection connection = getConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, id_h);
@@ -154,7 +172,7 @@ public class DatabaseManager {
             int cityId = resultSet.getInt("cityId");
             int temp = resultSet.getInt("temperature");
             LocalDate eventDate = resultSet.getDate("eventDate").toLocalDate();
-            city_h = new CityHistory(historicalDataId,cityId,eventDate,temp);
+            city_h = new CityHistory(historicalDataId, cityId, eventDate, temp);
         }
 
         connection.close();

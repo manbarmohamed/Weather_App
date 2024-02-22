@@ -3,6 +3,9 @@ public class City {
     private String cityName;
     private int currentTemperature;
 
+    public City() {
+    }
+
     public int getCityId() {
         return cityId;
     }
