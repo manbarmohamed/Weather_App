@@ -49,8 +49,8 @@ public class City {
     private int currentHumidity;
     private int currentWindSpeed;
 
-    public City(int cityId, String cityName, int currentTemperature, int currentHumidity, int currentWindSpeed) {
-        this.cityId = cityId;
+    public City(int cityId,String cityName, int currentTemperature, int currentHumidity, int currentWindSpeed) {
+        this.cityId=cityId;
         this.cityName = cityName;
         this.currentTemperature = currentTemperature;
         this.currentHumidity = currentHumidity;
@@ -64,7 +64,7 @@ public class City {
                 "\nName: " + cityName +
                 "\nTemperature: " + currentTemperature + " °C" +
                 "\nHumidity: " + currentHumidity + " %" +
-                "\nWind Speed: " + currentWindSpeed + " km/s";
+                "\nWind Speed: " + currentWindSpeed + " m/s";
     }
 
 

@@ -94,6 +94,7 @@ public class DatabaseManager {
         City city = null;
         if (resultSet.next()) {
             int id = resultSet.getInt("cityId");
+
             String name = resultSet.getString("cityName");
             int temp = resultSet.getInt("currentTemperature");
             int hm = resultSet.getInt("currentHumidity");
@@ -158,25 +159,41 @@ public class DatabaseManager {
         System.out.println("City deleted successfully!");
     }
 
-    public static CityHistory getCityHistoryById(int id_h) throws SQLException {
-        String sql = "SELECT * FROM City ,CityHistory WHERE City.cityId = ?";
-
+    public static void getCityHistoryById(int id_h) throws SQLException {
+       // String sql = "SELECT * FROM City ,CityHistory WHERE City.cityId = CityHistory.cityId and City.cityId=?";
+        String sql = "SELECT ch.historicalDataId, ch.cityId, ch.eventDate, ch.temperature, c.cityName " +
+                "FROM CityHistory ch " +
+                "JOIN City c ON ch.cityId = c.cityId " +
+                "WHERE ch.cityId = ?";
         Connection connection = getConnection();
         PreparedStatement statement = connection.prepareStatement(sql);
         statement.setInt(1, id_h);
         ResultSet resultSet = statement.executeQuery();
-
-        CityHistory city_h = null;
-        if (resultSet.next()) {
+       // CityHistory city_h = null;
+        while (resultSet.next()) {
+            String name=resultSet.getString("cityName");
             int historicalDataId = resultSet.getInt("historicalDataId");
             int cityId = resultSet.getInt("cityId");
             int temp = resultSet.getInt("temperature");
             LocalDate eventDate = resultSet.getDate("eventDate").toLocalDate();
-            city_h = new CityHistory(historicalDataId, cityId, eventDate, temp);
+            //city_h = new CityHistory(historicalDataId, cityId, eventDate, temp);
+            System.out.println("Historical Data ID: " + historicalDataId + "\n "+
+                    "\n, City Name: " + name + "\n, Event Date: " + eventDate + "\n, Temperature: " + temp);
         }
 
         connection.close();
-        return city_h;
+
     }
+
+//    public static  void getItemByName() throws SQLException {
+//        String sql = "select * from City where cityName=?";
+//        Connection cnx= getConnection();
+//        PreparedStatement statement = cnx.prepareStatement(sql);
+//        statement.setString(1,"TANGER");
+//        ResultSet resultSet= statement.executeQuery();
+//        if (resultSet.next()){
+//            System.out.println(resultSet.getString("cityName"));
+//        }
+//    }
 }
 

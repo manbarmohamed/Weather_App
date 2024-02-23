@@ -4,11 +4,14 @@ public class CityHistory {
     private int historicalDataId;
     private int cityId;
 
-
     private LocalDate eventDate;
+
+    public CityHistory() {
+    }
+
     private int temperature;
     public CityHistory(int historicalDataId, int cityId, LocalDate eventDate, int temperature) {
-        this.historicalDataId = historicalDataId;
+        this.historicalDataId=historicalDataId;
         this.cityId = cityId;
         this.eventDate = eventDate;
         this.temperature = temperature;
@@ -50,10 +53,10 @@ public class CityHistory {
     public String toString() {
         return "CityHistory Information\n" +
                 "-----------------------\n"+
-                "historicalDataId= " + historicalDataId +
-                "\n cityId= " + cityId +
-                "\n eventDate= " + eventDate +
-                "\n temperature= " + temperature +" °C"+
+                "historicalDataId= " + getHistoricalDataId() +
+                "\n cityId= " + getCityId() +
+                "\n eventDate= " + getEventDate() +
+                "\n temperature= " + getTemperature() +" °C"+
                 "\n-----------------------";
 
 

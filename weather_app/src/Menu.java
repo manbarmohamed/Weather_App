@@ -38,6 +38,7 @@ public class Menu {
     }
 
     public static void cityInfo() throws SQLException {
+        City ct = new City();
         int choice, id, currentTemperature, currentHumidity, currentWindSpeed;
         String name;
         do {
@@ -56,40 +57,41 @@ public class Menu {
             choice = new Scanner(System.in).nextInt();
             switch (choice) {
                 case 1:
-                    System.out.print("ID : ");
-                    id = new Scanner(System.in).nextInt();
+//                    System.out.print("ID : ");
+//                    id = new Scanner(System.in).nextInt();
                     System.out.print("NAME : ");
-                    name = new Scanner(System.in).nextLine();
+                    ct.setCityName(new Scanner(System.in).nextLine());
                     System.out.print("Current Temperature : ");
-                    currentTemperature = new Scanner(System.in).nextInt();
+                    ct.setCurrentTemperature(new Scanner(System.in).nextInt()) ;
                     System.out.print("Current Humidity : ");
-                    currentHumidity = new Scanner(System.in).nextInt();
+                    ct.setCurrentHumidity(new Scanner(System.in).nextInt()) ;
                     System.out.print("Current WindSpeed : ");
-                    currentWindSpeed = new Scanner(System.in).nextInt();
-                    DatabaseManager.addCity(new City(id, name, currentTemperature, currentHumidity, currentWindSpeed));
+                    ct.setCurrentWindSpeed(new Scanner(System.in).nextInt());
+                    DatabaseManager.addCity(ct);
+//                    DatabaseManager.AddCity();
                     break;
                 case 2:
                     System.out.print("Enter City ID to update: ");
-                    id = new Scanner(System.in).nextInt();
-                    System.out.print("NAME : ");
-                    name = new Scanner(System.in).nextLine();
-                    System.out.print("Current Temperature : ");
-                    currentTemperature = new Scanner(System.in).nextInt();
-                    System.out.print("Current Humidity : ");
-                    currentHumidity = new Scanner(System.in).nextInt();
-                    System.out.print("Current WindSpeed : ");
-                    currentWindSpeed = new Scanner(System.in).nextInt();
-                    DatabaseManager.updateCity(new City(id, name, currentTemperature, currentHumidity, currentWindSpeed));
+                    ct.setCityId(new Scanner(System.in).nextInt());
+                    System.out.print("New City name : ");
+                    ct.setCityName(new Scanner(System.in).nextLine());
+                    System.out.print("New Temperature : ");
+                    ct.setCurrentTemperature(new Scanner(System.in).nextInt()) ;
+                    System.out.print("New Humidity : ");
+                    ct.setCurrentHumidity(new Scanner(System.in).nextInt()) ;
+                    System.out.print("New WindSpeed : ");
+                    ct.setCurrentWindSpeed(new Scanner(System.in).nextInt());
+                    DatabaseManager.updateCity(ct);
                     break;
                 case 3:
                     System.out.print("Enter City ID to delete: ");
-                    id = new Scanner(System.in).nextInt();
-                    DatabaseManager.deleteCity(id);
+                    ct.setCityId(new Scanner(System.in).nextInt());
+                    DatabaseManager.deleteCity(ct.getCityId());
                     break;
                 case 4:
                     System.out.println("All Cities:");
-                    for (City ct : DatabaseManager.getAlCities()) {
-                        System.out.println(ct);
+                    for (City ct1 : DatabaseManager.getAlCities()) {
+                        System.out.println(ct1);
                     }
                     break;
                 case 5:
@@ -107,6 +109,7 @@ public class Menu {
                     } else {
                         System.out.println("City not found.");
                     }
+//                    DatabaseManager.getItemByName();
                     break;
             }
         } while (choice != 6);
@@ -117,7 +120,7 @@ public class Menu {
         String Event_S;
         LocalDate eventDate = null;
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-
+        CityHistory cth=new CityHistory();
         do {
             System.out.println("*************************************************");
             System.out.println("*           City Management System               *");
@@ -134,69 +137,70 @@ public class Menu {
             choice = new Scanner(System.in).nextInt();
             switch (choice) {
                 case 1:
-                    System.out.print("ID : ");
-                    id_h = new Scanner(System.in).nextInt();
+//                    System.out.print("ID : ");
+//                    id_h = new Scanner(System.in).nextInt();
                     System.out.print("Temperature : ");
-                    temperature = new Scanner(System.in).nextInt();
+                    cth.setTemperature(new Scanner(System.in).nextInt()) ;
                     System.out.println("Enter publication date of book (DD/MM/YYYY): ");
                     Event_S = new Scanner(System.in).nextLine();
                     try {
-                        eventDate = LocalDate.parse(Event_S, formatter);
+                        cth.setEventDate(LocalDate.parse(Event_S, formatter));
 
                     } catch (Exception e) {
                         System.out.println("Invalid date format. Please use DD/MM/YYYY.");
                                            }
                     System.out.print("City id : ");
-                    cityId = new Scanner(System.in).nextInt();
-                    DatabaseManager.addCityHistory(new CityHistory(id_h, cityId, eventDate, temperature));
+                    cth.setCityId(new Scanner(System.in).nextInt());
+                    DatabaseManager.addCityHistory(cth);
                     break;
                 case 2:
-                    id_h = new Scanner(System.in).nextInt();
-                    System.out.print("Temperature : ");
-                    temperature = new Scanner(System.in).nextInt();
+                    cth.setHistoricalDataId(new Scanner(System.in).nextInt()) ;
+                    System.out.print("New Temperature : ");
+                    cth.setTemperature(new Scanner(System.in).nextInt());
                     System.out.println("Enter publication date of book (DD/MM/YYYY): ");
                     Event_S = new Scanner(System.in).nextLine();
                     try {
-                        eventDate = LocalDate.parse(Event_S, formatter);
+                        cth.setEventDate(LocalDate.parse(Event_S, formatter));
 
                     } catch (Exception e) {
                         System.out.println("Invalid date format. Please use DD/MM/YYYY.");
                         return;
                     }
                     System.out.print("City id : ");
-                    cityId = new Scanner(System.in).nextInt();
-                    DatabaseManager.updateCityHistory(new CityHistory(id_h, cityId, eventDate, temperature));
+                    cth.setCityId(new Scanner(System.in).nextInt());
+                    DatabaseManager.updateCityHistory(cth);
                     break;
                 case 3:
                     System.out.print("Enter City ID to delete: ");
-                    id_h = new Scanner(System.in).nextInt();
-                    DatabaseManager.deleteCityHistory(id_h);
+                    cth.setHistoricalDataId(new Scanner(System.in).nextInt());
+                    DatabaseManager.deleteCityHistory(cth.getHistoricalDataId());
                     break;
                 case 4:
                     System.out.println("All Cities:");
-                    for (CityHistory cth : DatabaseManager.getAlCityHistory()) {
-                        System.out.println(cth);
+                    for (CityHistory cth1 : DatabaseManager.getAlCityHistory()) {
+                        System.out.println(cth1);
                     }
                     break;
                 case 5:
                     System.out.print("Enter the id of the city history to search: ");
                     int cityidToSearch = new Scanner(System.in).nextInt();
-                    CityHistory selectedCity = DatabaseManager.getCityHistoryById(cityidToSearch);
-
-                    if (selectedCity != null) {
-//                        System.out.println("Selected City:");
-//                        System.out.println("ID: " + selectedCity.getCityId());
-//                        System.out.println("Name: " + selectedCity.getCityName());
-//                        System.out.println("Temperature: " + selectedCity.getCurrentTemperature());
-//                        System.out.println("Humidity: " + selectedCity.getCurrentHumidity());
-//                        System.out.println("Wind Speed: " + selectedCity.getCurrentWindSpeed());
-                        for (CityHistory cth : DatabaseManager.getAlCityHistory()) {
-                            System.out.println(cth);
-                        }
-                    } else {
-                        System.out.println("City history not found.");
-                    }
-                    break;
+                    DatabaseManager.getCityHistoryById(cityidToSearch);
+//                    CityHistory selectedCity = DatabaseManager.getCityHistoryById(cityidToSearch);
+//
+//                    if (selectedCity != null) {
+////                        System.out.println("Selected City:");
+////                        System.out.println("ID: " + selectedCity.getCityId());
+////                        System.out.println("Name: " + selectedCity.getCityName());
+////                        System.out.println("Temperature: " + selectedCity.getCurrentTemperature());
+////                        System.out.println("Humidity: " + selectedCity.getCurrentHumidity());
+////                        System.out.println("Wind Speed: " + selectedCity.getCurrentWindSpeed());
+//                        for (CityHistory cth : DatabaseManager.getAlCityHistory()) {
+//                            System.out.println(cth);
+//                        }
+//                    } else {
+//                        System.out.println("City history not found.");
+//                    }
+//                    break;
             }
         } while (choice != 6);
 
